@@ -8,7 +8,7 @@ const Manager = () => {
   const [passwordArray, setPasswordArray] = useState([]);
 
   const getPasswords=async ()=>{
-    let req= await fetch("https://lockitdown-backend.netlify.app/")
+    let req= await fetch("https://lock-it-down-your-password-manager.vercel.app/")
     let passwords = await req.json();
     console.log(passwords)
       setPasswordArray(passwords);
@@ -23,9 +23,9 @@ const Manager = () => {
     console.log(form);
     setPasswordArray([...passwordArray, {...form,id:uuidv4()}]);
 
-    await fetch("https://lockitdown-backend.netlify.app/",{method:"DELETE",headers:{"Content-Type":"application/json"},body: JSON.stringify({id: form.id})})
+    await fetch("https://lock-it-down-your-password-manager.vercel.app/",{method:"DELETE",headers:{"Content-Type":"application/json"},body: JSON.stringify({id: form.id})})
 
-    await fetch("https://lockitdown-backend.netlify.app/",{method:"POST",headers:{"Content-Type":"application/json"},body: JSON.stringify({...form,id:uuidv4()})})
+    await fetch("https://lock-it-down-your-password-manager.vercel.app/",{method:"POST",headers:{"Content-Type":"application/json"},body: JSON.stringify({...form,id:uuidv4()})})
     setform({ site: "", username: "", password: "" })
     toast("Password Saved!", {
         position: "top-right",
@@ -64,7 +64,7 @@ const Manager = () => {
     let c=confirm("Do you really want to delete")
     if(c){
         setPasswordArray(passwordArray.filter(item=>item.id!==id))
-        let res =await fetch("https://lockitdown-backend.netlify.app/",{method:"DELETE",headers:{"Content-Type":"application/json"},body: JSON.stringify({id})})
+        let res =await fetch("https://lock-it-down-your-password-manager.vercel.app/",{method:"DELETE",headers:{"Content-Type":"application/json"},body: JSON.stringify({id})})
     }
     toast("Password Deleted!", {
         position: "top-right",
