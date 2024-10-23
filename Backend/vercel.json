@@ -1,11 +1,15 @@
 {
-  "version": 2,
-  "builds": [
-    { "src": "api/*.js", "use": "@vercel/node" }
-  ],
-  "routes": [
-    { "src": "/api/getPasswords", "dest": "/api/getPasswords.js" },
-    { "src": "/api/savePassword", "dest": "/api/savePassword.js" },
-    { "src": "/api/deletePassword", "dest": "/api/deletePassword.js" }
-  ]
+    "version": 2,
+    "builds": [
+        {
+            "src": "*.js",
+            "use": "@vercel/node"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "/"
+        }
+    ]
 }
