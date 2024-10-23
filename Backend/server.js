@@ -57,17 +57,16 @@ const port = 3000;
 const app = express();
 
 app.use(bodyparser.json());
-app.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Credentials', true);
-  res.header('Access-Control-Allow-Origin', "https://lock-it-down-your-password-manager-parvashah.vercel.app");
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,UPDATE,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
-  next();
-});
+const allowedOrigins = ['https://lock-it-down-your-password-manager-parvashah.vercel.app'];
 
 app.use(cors({
-  origin: "https://lock-it-down-your-password-manager-parvashah.vercel.app", 
-  credentials: true
+    origin: function (origin, callback) {
+        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    }
 }));
 
 
